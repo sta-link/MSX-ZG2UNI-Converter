@@ -13,7 +13,7 @@ def extract():
 def insert():
     os.chdir(tmp_dir)
     dirName = './'
-    # create a ZipFile object
+    # create like ZipFile object
     with ZipFile(doc_name, 'w') as zipObj:
     # Iterate over all the files in directory
         for folderName, subfolders, filenames in os.walk(dirName):
@@ -26,33 +26,31 @@ def insert():
                     zipObj.write(filePath)
                      
     os.chdir(sys.path[0])
-    source = tmp_dir
-    dest = out_dir
-    files = os.listdir(source)
+    files = os.listdir(tmp_dir)
 
     for f in files:
         if '.docx' in f:
-            if os.path.exists(dest+f):
-                os.remove(dest+f)
-                shutil.move(source+f, dest)
+            if os.path.exists(out_dir+f):
+                os.remove(out_dir+f)
+                shutil.move(tmp_dir+f, out_dir)
             else:
-                shutil.move(source+f, dest)
+                shutil.move(tmp_dir+f, out_dir)
             
         elif '.xlsx' in f:
-            if os.path.exists(dest+f):
-                os.remove(dest+f)
-                shutil.move(source+f, dest)
+            if os.path.exists(out_dir+f):
+                os.remove(out_dir+f)
+                shutil.move(tmp_dir+f, out_dir)
             else:
-                shutil.move(source+f, dest)
+                shutil.move(tmp_dir+f, out_dir)
         
         elif '.pptx' in f:
-            if os.path.exists(dest+f):
-                os.remove(dest+f)
-                shutil.move(source+f, dest)
+            if os.path.exists(out_dir+f):
+                os.remove(out_dir+f)
+                shutil.move(tmp_dir+f, out_dir)
             else:
-                shutil.move(source+f, dest)
+                shutil.move(tmp_dir+f, out_dir)
         
-    shutil.rmtree(source)
+    shutil.rmtree(tmp_dir)
         
        
 def convert():
@@ -61,9 +59,9 @@ def convert():
         for doc in f:
             if '.xml' in doc:
                 doc_name = doc
-                f_locate = str(r+'\\'+doc)
+                f_locate = str(r+'/'+doc)
                 #file read
-                r_file = open(f_locate, "r", encoding='utf-8')
+                r_file = open(f_locate, 'r', encoding='utf-8')
                 text = (r_file.read())
                 #file convert
                 # unicode_text = Rabbit.uni2zg(text)
@@ -74,16 +72,16 @@ def convert():
                 r_file.close()
 
 
-in_dir = "Zawgyi_Files\\"
-out_dir = "Converted_Files\\"
-tmp_dir = "_tmp\\"
+in_dir = r'Zawgyi_Files/'
+out_dir = r'Converted_Files/'
+tmp_dir = r'_tmp/'
 files = []
 # r=root, d=directories, f = files
 for r, d, f in os.walk(in_dir):
     for file in f:
         if '.docx' in file:
             doc_name = file
-            imp_file = (r+'\\'+file)
+            imp_file = (r+'/'+file)
             print ('>>> Converting the',doc_name)
             extract()
             convert()
@@ -91,7 +89,7 @@ for r, d, f in os.walk(in_dir):
             
         elif '.xlsx' in file:
             doc_name = file
-            imp_file = (r+'\\'+file)
+            imp_file = (r+'/'+file)
             print ('>>> Converting the',doc_name)
             extract()
             convert()
@@ -99,7 +97,7 @@ for r, d, f in os.walk(in_dir):
             
         elif '.pptx' in file:
             doc_name = file
-            imp_file = (r+'\\'+file)
+            imp_file = (r+'/'+file)
             print ('>>> Converting the',doc_name)
             extract()
             convert()
