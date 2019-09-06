@@ -13,7 +13,7 @@ python 3
 ## Usage
 Before starting the script, put in the files to **''Zawgyi_Files''** folder.
 
-Go to path directory `#cd \path to\MSX-ZG2UNI-Converter-master\` and type
+Go to path directory `#cd /path to/MSX-ZG2UNI-Converter-master/` and type
 > #python main.py
 
 Unicode converted file will saved in **''Converted_Files''** folder.
